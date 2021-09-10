@@ -5,23 +5,6 @@ import {Form, Button, Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
-const accountSid = 'AC4269684a558ff70d56b112ba4cee736f';
-  const authToken = 'c55cea294352a06579b023424155ea9b';
-
-var client = require('twilio')(accountSid, authToken);
-client.calls.create({
-  url: 'http://demo.twilio.com/docs/voice.xml',
-  to: '+17735017666',  //change this to the number of the user in the future
-  from: '+13182324682'
-}, function(err, call){
-  if (err){
-    console.log(err);
-  }else {
-    console.log(call.sid);
-  }
-})
-
-
 function App() {
   const [contacts, setContacts] = useState(null)
   const [name, setName] = useState(null)
@@ -52,8 +35,13 @@ function App() {
     setNumber(e.target.value)
   }
   const call = (e) =>{
-    //console.log(e.target.id)
-    //makeCall(e.target.id)
+    let reqUrl = 'http://localhost:4000/makecall/' + e.target.id;
+    console.log(reqUrl)
+    fetch(reqUrl, {
+      method: "GET",
+    }).then(response=>{
+      console.log(response)
+    }).catch(err => console.log(err))
   }
   
   return (
