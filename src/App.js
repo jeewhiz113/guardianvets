@@ -15,7 +15,6 @@ function App() {
       snapshot.forEach(doc => {
         data.push(doc.data())
       })
-      console.log(data)
       setContacts(data)
     })
   }, [])
