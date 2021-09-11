@@ -36,7 +36,6 @@ function App() {
   }
   const call = (e) =>{
     let reqUrl = 'http://localhost:4000/makecall/' + e.target.id;
-    console.log(reqUrl)
     fetch(reqUrl, {
       method: "GET",
     }).then(response=>{
