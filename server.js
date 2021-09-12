@@ -15,7 +15,7 @@ app.get('/makecall/:num', (req, res)=>{
   let outboundNum = '+1' + req.params.num;
   client.calls.create({
     url: 'http://demo.twilio.com/docs/voice.xml',
-    to: outboundNum,  //change this to the number of the user in the future
+    to: outboundNum, 
     from: '+13182324682'
   }, function(err, call){
     if (err){
@@ -36,12 +36,11 @@ app.post('/checkout', async (req, res)=>{
       source: token.id
     })
     const idempotencyKey = uuid();
-    //try to charge the user:
     const charge = await stripe.charges.create(
       {
         amount: 50,
         currency: "usd",
-        customer: customer.id,  //this is from the creation of the customer
+        customer: customer.id,
         receipt_email: token.email,
         description: "Phone Call",
         shipping: {
@@ -64,13 +63,10 @@ app.post('/checkout', async (req, res)=>{
     console.log("Error:", error);
     chargeStatus = "failed"
   }
-  //Ok, so it seems like we do get access to status here, going forward:
-  
-  //Step 1: If status === success then we make a call to the outbound number through Twilio
   if (chargeStatus === "success"){
     client.calls.create({
         url: 'http://demo.twilio.com/docs/voice.xml',
-        to: outboundNumber,  //change this to the number of the user in the future
+        to: outboundNumber,
         from: '+13182324682'
       }, function(err, call){
         if (err){

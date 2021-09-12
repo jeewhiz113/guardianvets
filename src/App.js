@@ -1,5 +1,5 @@
 import db from './firebase';
-import { collection, getDocs, getDoc, addDoc, doc, onSnapshot, query } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot} from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import {Form, Button, Table} from 'react-bootstrap';
@@ -12,7 +12,6 @@ function App() {
   const [contacts, setContacts] = useState(null)
   const [name, setName] = useState(null)
   const [number, setNumber] = useState(null)
-  //const [callNumber, setCallNumber] = useState(null)
   let outboundNumber;
   useEffect(()=>{ 
     onSnapshot(collection(db, 'contacts'), (snapshot)=>{
@@ -38,14 +37,6 @@ function App() {
     console.log(e.target.value)
     setNumber(e.target.value)
   }
-  // const call = (e) =>{
-  //   let reqUrl = 'http://localhost:4000/makecall/' + e.target.id;
-  //   fetch(reqUrl, {
-  //     method: "GET",
-  //   }).then(response=>{
-  //     console.log(response)
-  //   }).catch(err => console.log(err))
-  // }
   const handleToken = (token, addresses)=>{
     axios.post('http://localhost:4000/checkout', {token, outboundNumber}).then((res)=>{
       console.log(res)
