@@ -6,7 +6,6 @@ import {Form, Button, Table} from 'react-bootstrap';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-import e from 'cors';
 
 function App() {
   const [contacts, setContacts] = useState(null)
